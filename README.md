@@ -3,10 +3,10 @@
 ## Anggota Kelompok 5
 
 1. Riyad Hiyan Arizki (2503010024)
-2. Edwin Arsy Al Fikri (25030100
-3. Faiz Husni Firdaus (25030100
-4. Reva Nur Budiman (25030100
-5. Muhammad Rafi Ardiansyah (25030100
+2. Edwin Arsy Al Fikri (2503010028)
+3. Faiz Husni Firdaus (2503010038)
+4. Reva Nur Budiman (2503010051)
+5. Muhammad Rafi Ardiansyah (2503010036)
 
 ---
 
@@ -43,7 +43,7 @@ Pengelolaan data akademik secara manual sering menyebabkan kesulitan dalam penca
 #### Pengelolaan Jadwal
 
 * Menambahkan jadwal pelajaran
-* Mengubah jadwal pelajaran
+* Mengubah jadwal pelajara
 * Menghapus jadwal pelajaran
 * Menampilkan jadwal pelajaran
 
