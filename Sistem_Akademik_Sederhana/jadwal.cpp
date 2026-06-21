@@ -14,6 +14,22 @@ struct Jadwal {
 
 Jadwal* head = NULL;
 
+//Hitung Jadwal
+int hitungJadwal() {
+	if (head == NULL)
+	return 0;
+	
+	int jumlah = 0;
+	Jadwal* temp = head;
+	
+	do {
+		jumlah++;
+		temp = temp->next;
+	} while (temp != head);
+	
+	return jumlah;
+}
+
 //Tambah Jadwal
 void tambahJadwal() {
 	Jadwal* baru = new Jadwal();
@@ -86,6 +102,11 @@ void editJadwal() {
 	cout << "\nPilih nomor jadwal yang akan diedit : ";
 	cin >> nomor;
 	
+	if (nomor < 1 || nomor > hitungJadwal()) {
+		cout << "\nNomor tidak valid!\n";
+		return;
+	}
+	
 	Jadwal* temp = head;
 	
 	for (int i = 1; i < nomor; i++) {
@@ -121,6 +142,11 @@ void hapusJadwal() {
 	
 	cout <<"\nPilih nomor yang akan dihapus : ";
 	cin >> nomor;
+	
+	if (nomor < 1 || nomor > hitungJadwal()) {
+		cout << "\nNomor tidak valid!\n";
+		return;
+	}
 	
 	Jadwal* hapus = head;
 	
