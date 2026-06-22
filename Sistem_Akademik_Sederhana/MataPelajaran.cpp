@@ -1,14 +1,14 @@
 #include <iostream>
 #include <string>
-#include <iomanip> 
-#include <limits>  
+#include <iomanip>
+#include <limits>
 
 using namespace std;
 
 struct MataPelajaran {
     string kode;
     string nama;
-    int sks;
+    string guru; 
 };
 
 struct Node {
@@ -94,13 +94,9 @@ public:
             return;
         }
 
-        cout << "Masukkan Jumlah SKS : ";
-        while (!(cin >> mp.sks)) { 
-            cout << "Input salah! Masukkan angka untuk SKS: ";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        }
-        bersihkanBuffer(); 
+        // Mengubah input SKS menjadi input Nama Guru
+        cout << "Masukkan Nama Guru  : ";
+        getline(cin, mp.guru);
 
         Node* newNode = new Node();
         newNode->data = mp;
@@ -125,12 +121,13 @@ public:
             return;
         }
 
-        cout << "---------------------------------------------------------\n";
+        // Menyesuaikan lebar kolom tabel agar muat nama guru
+        cout << "-----------------------------------------------------------------------------\n";
         cout << "| " << left << setw(4) << "No" 
              << "| " << setw(12) << "Kode Mapel" 
              << "| " << setw(25) << "Nama Mata Pelajaran" 
-             << "| " << setw(5) << "SKS" << " |\n";
-        cout << "---------------------------------------------------------\n";
+             << "| " << setw(25) << "Nama Pengajar / Guru" << " |\n";
+        cout << "-----------------------------------------------------------------------------\n";
         
         Node* current = head;
         int no = 1;
@@ -139,12 +136,12 @@ public:
             cout << "| " << left << setw(4) << no 
                  << "| " << setw(12) << current->data.kode 
                  << "| " << setw(25) << current->data.nama 
-                 << "| " << setw(5) << current->data.sks << " |\n";
+                 << "| " << setw(25) << current->data.guru << " |\n";
             
             current = current->next; 
             no++;
         }
-        cout << "---------------------------------------------------------\n";
+        cout << "-----------------------------------------------------------------------------\n";
     }
 
     void ubahMapel() {
@@ -173,13 +170,11 @@ public:
             }
 
             targetNode->data.nama = namaBaru;
-            cout << "Masukkan SKS Baru  : ";
-            while (!(cin >> targetNode->data.sks)) {
-                cout << "Input salah! Masukkan angka untuk SKS: ";
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            }
-            bersihkanBuffer();
+            
+            // Mengubah ubah SKS menjadi ubah Nama Guru
+            cout << "Masukkan Guru Baru : ";
+            getline(cin, targetNode->data.guru);
+            
             cout << "Data mata pelajaran berhasil diperbarui!\n";
         }
     }
@@ -242,8 +237,9 @@ public:
             string kodeLower = keHurufKecil(current->data.kode);
 
             if (kodeLower == keywordLower || namaLower.find(keywordLower) != string::npos) {
-                cout << "- [" << current->data.kode << "] " << current->data.nama << " (" << current->data.sks << " SKS)\n";
-                 ditemukan = true;
+                // Menyesuaikan tampilan informasi saat dicari
+                cout << "- [" << current->data.kode << "] " << current->data.nama << " (Guru: " << current->data.guru << ")\n";
+                ditemukan = true;
             }
             current = current->next;
         }
@@ -260,7 +256,7 @@ int main() {
 
     do {
         cout << "\n==================================\n";
-        cout << "    SISTEM MANAJEMEN MAPEL (LL)   \n";
+        cout << "     SISTEM MANAJEMEN MAPEL (LL)   \n";
         cout << "==================================\n";
         cout << "1. Tambah Mata Pelajaran\n";
         cout << "2. Tampilkan Semua Mata Pelajaran\n";
@@ -285,7 +281,7 @@ int main() {
             case 3: app.ubahMapel(); break;
             case 4: app.hapusMapel(); break;
             case 5: app.cariMapel(); break;
-            case 6: cout << "Terima kasih! Program selesai.\n"; break;
+            case 0: cout << "Terima kasih! Program selesai.\n"; break;
             default: cout << "Pilihan tidak valid. Silakan coba lagi.\n";
         }
     } while (pilihan != 6);
