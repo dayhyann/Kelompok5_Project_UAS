@@ -90,7 +90,7 @@ Pengelolaan data akademik secara manual sering menyebabkan kesulitan dalam penca
 
 ### Data Nilai
 
-* NIS Siswa
+* Nama Siswa
 * Mata Pelajaran
 * Nilai
 
