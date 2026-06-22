@@ -145,3 +145,35 @@ public:
         }
     }
 };
+
+int main() {
+    PengelolaMapel app;
+    int pilihan;
+
+    do {
+        cout << "\n==================================\n";
+        cout << "    SISTEM MANAJEMEN MAPEL        \n";
+        cout << "==================================\n";
+        cout << "1. Tambah Mata Pelajaran\n";
+        cout << "2. Tampilkan Semua Mata Pelajaran\n";
+        cout << "3. Ubah Mata Pelajaran\n";
+        cout << "4. Hapus Mata Pelajaran\n";
+        cout << "5. Cari Mata Pelajaran\n";
+        cout << "6. Keluar\n";
+        cout << "Pilih menu (1-6): ";
+        cin >> pilihan;
+
+        switch (pilihan) {
+            case 1: app.tambahMapel(); break;
+            case 2: app.tampilkanMapel(); break;
+            case 3: app.ubahMapel(); break;
+            case 4: app.hapusMapel(); break;
+            case 5: app.cariMapel(); break;
+            case 6: cout << "Terima kasih! Program selesai.\n"; break;
+            default: cout << "Pilihan tidak valid. Silakan coba lagi.\n";
+        }
+    } while (pilihan != 6);
+
+    return 0;
+}
+
