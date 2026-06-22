@@ -263,7 +263,7 @@ int main() {
         cout << "3. Ubah Mata Pelajaran\n";
         cout << "4. Hapus Mata Pelajaran\n";
         cout << "5. Cari Mata Pelajaran\n";
-        cout << "6. Keluar\n";
+        cout << "0. Keluar\n";
         cout << "Pilih menu (1-6): ";
         
         if (!(cin >> pilihan)) {
@@ -284,7 +284,7 @@ int main() {
             case 0: cout << "Terima kasih! Program selesai.\n"; break;
             default: cout << "Pilihan tidak valid. Silakan coba lagi.\n";
         }
-    } while (pilihan != 6);
+    } while (pilihan != 0);
 
     return 0;
 }
