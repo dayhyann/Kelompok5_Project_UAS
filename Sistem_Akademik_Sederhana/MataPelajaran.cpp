@@ -1,7 +1,5 @@
 #include <iostream>
-#include <vector>
 #include <string>
-#include <algorithm>
 
 using namespace std;
 
@@ -13,68 +11,157 @@ struct MataPelajaran {
 };
 
 
+struct Node {
+    MataPelajaran data;
+    Node* next;
+};
+
 class PengelolaMapel {
 private:
-    vector<MataPelajaran> daftarMapel;
+    Node* head;
 
-   
-    int cariIndeksBandaKode(string kode) {
-        for (size_t i = 0; i < daftarMapel.size(); ++i) {
-            if (daftarMapel[i].kode == kode) {
-                return i; 
+    
+    string keHurufKecil(string str) {
+        for (size_t i = 0; i < str.length(); i++) {
+            if (str[i] >= 'A' && str[i] <= 'Z') {
+                str[i] = str[i] + 32;
             }
         }
-        return -1; 
+        return str;
+    }
+
+    
+    Node* cariBerdasarkanKode(string kode) {
+        Node* current = head;
+        while (current != nullptr) {
+            if (current->data.kode == kode) {
+                return current; 
+            }
+            current = current->next;
+        }
+        return nullptr;
+    }
+
+    
+    bool apakahNamaSudahAda(string nama, string kodeAbaikan = "") {
+        Node* current = head;
+        while (current != nullptr) {
+            if (!kodeAbaikan.empty() && current->data.kode == kodeAbaikan) {
+                current = current->next;
+                continue;
+            }
+            if (keHurufKecil(current->data.nama) == keHurufKecil(nama)) {
+                return true; 
+            }
+            current = current->next;
+        }
+        return false;
+    }
+
+    void bersihkanBuffer() {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
 public:
     
+    PengelolaMapel() {
+        head = nullptr;
+    }
+
+    
+    ~PengelolaMapel() {
+        Node* current = head;
+        while (current != nullptr) {
+            Node* nextNode = current->next;
+            delete current;
+            current = nextNode;
+        }
+    }
+
+    
     void tambahMapel() {
         MataPelajaran mp;
         cout << "\n--- Tambah Mata Pelajaran ---\n";
-        cout << "Masukkan Kode Mapel: ";
+        cout << "Masukkan Kode Mapel : ";
         cin >> mp.kode;
-        cin.ignore(); 
+        bersihkanBuffer(); 
 
         
-        if (cariIndeksBandaKode(mp.kode) != -1) {
-            cout << "Gagal! Mata pelajaran dengan kode " << mp.kode << " sudah terdaftar.\n";
+        if (cariBerdasarkanKode(mp.kode) != nullptr) {
+            cout << "Gagal! Kode Mapel '" << mp.kode << "' sudah digunakan.\n";
             return;
         }
 
-        cout << "Masukkan Nama Mapel: ";
+        cout << "Masukkan Nama Mapel : ";
         getline(cin, mp.nama);
-        cout << "Masukkan Jumlah SKS : ";
-        cin >> mp.sks;
 
-        daftarMapel.push_back(mp);
+        
+        if (apakahNamaSudahAda(mp.nama)) {
+            cout << "Gagal! Mata pelajaran '" << mp.nama << "' sudah ada di sistem.\n";
+            return;
+        }
+
+        cout << "Masukkan Jumlah SKS : ";
+        while (!(cin >> mp.sks)) { 
+            cout << "Input salah! Masukkan angka untuk SKS: ";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+        bersihkanBuffer(); 
+
+
+        Node* newNode = new Node();
+        newNode->data = mp;
+        newNode->next = nullptr;
+
+        
+        if (head == nullptr) {
+            head = newNode;
+        } else {
+            
+            Node* temp = head;
+            while (temp->next != nullptr) {
+                temp = temp->next;
+            }
+            temp->next = newNode; 
+        }
         cout << "Mata pelajaran berhasil ditambahkan!\n";
     }
 
     
     void tampilkanMapel() {
         cout << "\n--- Daftar Mata Pelajaran ---\n";
-        if (daftarMapel.empty()) {
+        if (head == nullptr) {
             cout << "Belum ada mata pelajaran yang terdaftar.\n";
             return;
         }
 
-        cout << "--------------------------------------------------\n";
-        cout << "| No | Kode Mapel | Nama Mata Pelajaran | SKS |\n";
-        cout << "--------------------------------------------------\n";
-        for (size_t i = 0; i < daftarMapel.size(); ++i) {
-            cout << "| " << i + 1 << "  | " 
-                 << daftarMapel[i].kode << "\t  | " 
-                 << daftarMapel[i].nama << "\t\t| " 
-                 << daftarMapel[i].sks << "   |\n";
+        cout << "---------------------------------------------------------\n";
+        cout << "| " << left << setw(4) << "No" 
+             << "| " << setw(12) << "Kode Mapel" 
+             << "| " << setw(25) << "Nama Mata Pelajaran" 
+             << "| " << setw(5) << "SKS" << " |\n";
+        cout << "---------------------------------------------------------\n";
+        
+        Node* current = head;
+        int no = 1;
+        
+        while (current != nullptr) {
+            cout << "| " << left << setw(4) << no 
+                 << "| " << setw(12) << current->data.kode 
+                 << "| " << setw(25) << current->data.nama 
+                 << "| " << setw(5) << current->data.sks << " |\n";
+            
+            current = current->next; 
+            no++;
         }
-        cout << "--------------------------------------------------\n";
+        cout << "---------------------------------------------------------\n";
     }
 
-    
     void ubahMapel() {
         cout << "\n--- Ubah Mata Pelajaran ---\n";
-        if (daftarMapel.empty()) {
+        if (head == nullptr) {
             cout << "Daftar masih kosong.\n";
             return;
         }
@@ -82,24 +169,36 @@ public:
         string kode;
         cout << "Masukkan Kode Mapel yang ingin diubah: ";
         cin >> kode;
+        bersihkanBuffer();
 
-        int indeks = cariIndeksBandaKode(kode);
-        if (indeks == -1) {
-            cout << "Mata pelajaran dengan kode " << kode << " tidak ditemukan.\n";
+        Node* targetNode = cariBerdasarkanKode(kode);
+        if (targetNode == nullptr) {
+            cout << "Mata pelajaran dengan kode '" << kode << "' tidak ditemukan.\n";
         } else {
-            cin.ignore();
+            string namaBaru;
             cout << "Masukkan Nama Baru : ";
-            getline(cin, daftarMapel[indeks].nama);
+            getline(cin, namaBaru);
+
+            if (apakahNamaSudahAda(namaBaru, kode)) {
+                cout << "Gagal! Nama '" << namaBaru << "' sudah dipakai oleh kode mapel lain.\n";
+                return;
+            }
+
+            targetNode->data.nama = namaBaru;
             cout << "Masukkan SKS Baru  : ";
-            cin >> daftarMapel[indeks].sks;
+            while (!(cin >> targetNode->data.sks)) {
+                cout << "Input salah! Masukkan angka untuk SKS: ";
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            }
+            bersihkanBuffer();
             cout << "Data mata pelajaran berhasil diperbarui!\n";
         }
     }
 
-    
     void hapusMapel() {
         cout << "\n--- Hapus Mata Pelajaran ---\n";
-        if (daftarMapel.empty()) {
+        if (head == nullptr) {
             cout << "Daftar masih kosong.\n";
             return;
         }
@@ -107,37 +206,58 @@ public:
         string kode;
         cout << "Masukkan Kode Mapel yang ingin dihapus: ";
         cin >> kode;
+        bersihkanBuffer();
 
-        int indeks = cariIndeksBandaKode(kode);
-        if (indeks == -1) {
-            cout << "Mata pelajaran dengan kode " << kode << " tidak ditemukan.\n";
-        } else {
-            daftarMapel.erase(daftarMapel.begin() + indeks);
-            cout << "Mata pelajaran dengan kode " << kode << " berhasil dihapus.\n";
+        Node* temp = head;
+        Node* prev = nullptr;
+
+        if (temp != nullptr && temp->data.kode == kode) {
+            head = temp->next;
+            delete temp;
+            cout << "Mata pelajaran dengan kode '" << kode << "' berhasil dihapus.\n";
+            return;
         }
+
+        while (temp != nullptr && temp->data.kode != kode) {
+            prev = temp;
+            temp = temp->next;
+        }
+
+        if (temp == nullptr) {
+            cout << "Mata pelajaran dengan kode '" << kode << "' tidak ditemukan.\n";
+            return;
+        }
+
+        prev->next = temp->next;
+        delete temp;
+        cout << "Mata pelajaran dengan kode '" << kode << "' berhasil dihapus.\n";
     }
 
-    
     void cariMapel() {
         cout << "\n--- Cari Mata Pelajaran ---\n";
-        if (daftarMapel.empty()) {
+        if (head == nullptr) {
             cout << "Daftar masih kosong.\n";
             return;
         }
 
         string keyword;
-        cout << "Masukkan Kode atau Nama Mapel yang dicari: ";
-        cin.ignore();
+        cout << "Masukkan Kode atau Nama Mapel: ";
         getline(cin, keyword);
 
         bool ditemukan = false;
+        string keywordLower = keHurufKecil(keyword);
+        
         cout << "\nHasil Pencarian:\n";
-        for (const auto& mp : daftarMapel) {
-            
-            if (mp.kode == keyword || mp.nama.find(keyword) != string::npos) {
-                cout << "- [" << mp.kode << "] " << mp.nama << " (" << mp.sks << " SKS)\n";
-                ditemukan = true;
+        Node* current = head;
+        while (current != nullptr) {
+            string namaLower = keHurufKecil(current->data.nama);
+            string kodeLower = keHurufKecil(current->data.kode);
+
+            if (kodeLower == keywordLower || namaLower.find(keywordLower) != string::npos) {
+                cout << "- [" << current->data.kode << "] " << current->data.nama << " (" << current->data.sks << " SKS)\n";
+                 ditemukan = true;
             }
+            current = current->next;
         }
 
         if (!ditemukan) {
@@ -146,13 +266,14 @@ public:
     }
 };
 
+
 int main() {
     PengelolaMapel app;
     int pilihan;
 
     do {
         cout << "\n==================================\n";
-        cout << "    SISTEM MANAJEMEN MAPEL        \n";
+        cout << "    SISTEM MANAJEMEN MAPEL (LL)   \n";
         cout << "==================================\n";
         cout << "1. Tambah Mata Pelajaran\n";
         cout << "2. Tampilkan Semua Mata Pelajaran\n";
@@ -161,7 +282,15 @@ int main() {
         cout << "5. Cari Mata Pelajaran\n";
         cout << "6. Keluar\n";
         cout << "Pilih menu (1-6): ";
-        cin >> pilihan;
+        
+        if (!(cin >> pilihan)) {
+            cout << "Masukkan harus berupa angka!\n";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
+        
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         switch (pilihan) {
             case 1: app.tambahMapel(); break;
