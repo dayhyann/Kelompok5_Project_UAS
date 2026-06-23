@@ -1,24 +1,11 @@
 #include <iostream>
-#include <vector>
 #include <string>
 
 using namespace std;
 
-struct Siswa
-{
-    string nis;
-    string nama;
-    float nilai;
-    Siswa *next;
-};
+// === STRUCT SISWA & MAPEL SUDAH DIHAPUS SESUAI ARAHAN ADMIN ===
 
-struct Matapelajaran
-{
-    string Kode;
-    string Nama;
-    int SKS;
-};
-
+// 1. Fungsi Cari Siswa Berdasarkan NIS (Linked List)
 void cariSiswaByNIS(Siswa *head, string nis)
 {
     Siswa *current = head;
@@ -45,6 +32,7 @@ void cariSiswaByNIS(Siswa *head, string nis)
     }
 }
 
+// 2. Fungsi Cari Siswa Berdasarkan Nama (Linked List)
 void cariSiswaByNama(Siswa *head, string nama)
 {
     Siswa *current = head;
@@ -70,21 +58,24 @@ void cariSiswaByNama(Siswa *head, string nama)
     }
 }
 
-void cariMapel(const vector<Matapelajaran> &daftarMapel, string keyword)
+// 3. Fungsi Cari Mata Pelajaran (SUDAH DIGANTI MENJADI LINKED LIST)
+void cariMapel(Matapelajaran *head, string keyword)
 {
+    Matapelajaran *current = head;
     bool ditemukan = false;
 
-    for (const auto &mapel : daftarMapel)
+    while (current != nullptr)
     {
-        if (mapel.Kode == keyword || mapel.Nama == keyword)
+        if (current->Kode == keyword || current->Nama == keyword)
         {
             cout << "\n[+] Data Mata Pelajaran Ditemukan!" << endl;
             cout << "----------------------------------" << endl;
-            cout << "Kode Mapel : " << mapel.Kode << endl;
-            cout << "Nama Mapel : " << mapel.Nama << endl;
-            cout << "SKS        : " << mapel.SKS << endl;
+            cout << "Kode Mapel : " << current->Kode << endl;
+            cout << "Nama Mapel : " << current->Nama << endl;
+            cout << "SKS        : " << current->SKS << endl;
             ditemukan = true;
         }
+        current = current->next;
     }
 
     if (!ditemukan)
@@ -93,7 +84,7 @@ void cariMapel(const vector<Matapelajaran> &daftarMapel, string keyword)
     }
 }
 
-void menuSearching(Siswa *headSiswa, const vector<Matapelajaran> &daftarMapel)
+void menuSearching(Siswa *headSiswa, Matapelajaran *headMapel)
 {
     int pilihan;
     string keyword;
@@ -127,7 +118,7 @@ void menuSearching(Siswa *headSiswa, const vector<Matapelajaran> &daftarMapel)
         case 3:
             cout << "Masukkan Kode/Nama Mapel yang dicari: ";
             getline(cin, keyword);
-            cariMapel(daftarMapel, keyword);
+            cariMapel(headMapel, keyword);
             break;
         case 4:
             cout << "Keluar dari Menu Searching..." << endl;
