@@ -6,16 +6,13 @@ using namespace std;
 void tukarDataSiswa(Siswa *a, Siswa *b)
 {
     string tempNis = a->nis;
-    string tempNama = a->nama;
-    float tempNilai = a->nilai;
+    string tempNama = a->nama; // Proses swap nilai sudah dihapus
 
     a->nis = b->nis;
     a->nama = b->nama;
-    a->nilai = b->nilai;
 
     b->nis = tempNis;
     b->nama = tempNama;
-    b->nilai = tempNilai;
 }
 
 void urutkanSiswaByNIS(Siswa *head)
@@ -47,7 +44,6 @@ void urutkanSiswaByNIS(Siswa *head)
     cout << "\n[+] Data siswa berhasil diurutkan berdasarkan NIS secara Ascending." << endl;
 }
 
-// 2. Urutkan Siswa berdasarkan Nama (Ascending)
 void urutkanSiswaByNama(Siswa *head)
 {
     if (head == nullptr)

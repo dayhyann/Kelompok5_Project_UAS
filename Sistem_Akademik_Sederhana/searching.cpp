@@ -3,9 +3,6 @@
 
 using namespace std;
 
-// === STRUCT SISWA & MAPEL SUDAH DIHAPUS SESUAI ARAHAN ADMIN ===
-
-// 1. Fungsi Cari Siswa Berdasarkan NIS (Linked List)
 void cariSiswaByNIS(Siswa *head, string nis)
 {
     Siswa *current = head;
@@ -18,8 +15,7 @@ void cariSiswaByNIS(Siswa *head, string nis)
             cout << "\n[+] Data Siswa Ditemukan!" << endl;
             cout << "-------------------------" << endl;
             cout << "NIS   : " << current->nis << endl;
-            cout << "Nama  : " << current->nama << endl;
-            cout << "Nilai : " << current->nilai << endl;
+            cout << "Nama  : " << current->nama << endl; // Atribut nilai sudah dihapus
             ditemukan = true;
             break;
         }
@@ -32,7 +28,6 @@ void cariSiswaByNIS(Siswa *head, string nis)
     }
 }
 
-// 2. Fungsi Cari Siswa Berdasarkan Nama (Linked List)
 void cariSiswaByNama(Siswa *head, string nama)
 {
     Siswa *current = head;
@@ -45,8 +40,7 @@ void cariSiswaByNama(Siswa *head, string nama)
             cout << "\n[+] Data Siswa Ditemukan!" << endl;
             cout << "-------------------------" << endl;
             cout << "NIS   : " << current->nis << endl;
-            cout << "Nama  : " << current->nama << endl;
-            cout << "Nilai : " << current->nilai << endl;
+            cout << "Nama  : " << current->nama << endl; // Atribut nilai sudah dihapus
             ditemukan = true;
         }
         current = current->next;
@@ -58,7 +52,6 @@ void cariSiswaByNama(Siswa *head, string nama)
     }
 }
 
-// 3. Fungsi Cari Mata Pelajaran (SUDAH DIGANTI MENJADI LINKED LIST)
 void cariMapel(Matapelajaran *head, string keyword)
 {
     Matapelajaran *current = head;
