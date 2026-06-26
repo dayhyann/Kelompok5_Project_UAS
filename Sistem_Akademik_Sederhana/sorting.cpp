@@ -1,18 +1,24 @@
+#include "sorting.h"
 #include <iostream>
-#include <string>
 
 using namespace std;
 
 void tukarDataSiswa(Siswa *a, Siswa *b)
 {
     string tempNis = a->nis;
-    string tempNama = a->nama; // Proses swap nilai sudah dihapus
+    string tempNama = a->nama;
+    string tempKelas = a->kelas;
+    string tempJurusan = a->jurusan; // Proses swap nilai sudah dihapus
 
     a->nis = b->nis;
     a->nama = b->nama;
+    a->kelas = b->kelas;
+    a->jurusan = b->jurusan;
 
     b->nis = tempNis;
     b->nama = tempNama;
+    b->kelas = tempKelas;
+    b->jurusan = tempJurusan;
 }
 
 void urutkanSiswaByNIS(Siswa *head)

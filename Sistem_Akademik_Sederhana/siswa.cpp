@@ -1,16 +1,8 @@
+#include "siswa.h"
 #include <iostream>
-#include <string>
 
 using namespace std;
-
-struct Siswa
-{
-    string nis;
-    string nama;
-    string kelas;
-    string jurusan;
-    Siswa *next;
-};
+Siswa *headSiswa = nullptr;
 
 void tambahSiswa(Siswa *&head)
 {
@@ -149,4 +141,48 @@ void hapusSiswa(Siswa *&head)
     prev->next = temp->next;
     delete temp;
     cout << "[+] Data siswa berhasil dihapus!\n";
+}
+
+void menuSiswa()
+{
+    int pilihan;
+
+    do
+    {
+        cout << "\n===== MENU SISWA =====\n";
+        cout << "1. Tambah Siswa\n";
+        cout << "2. Tampilkan Siswa\n";
+        cout << "3. Edit Siswa\n";
+        cout << "4. Hapus Siswa\n";
+        cout << "0. Kembali\n";
+        cout << "Pilihan : ";
+        cin >> pilihan;
+
+        switch (pilihan)
+        {
+        case 1:
+            tambahSiswa(headSiswa);
+            break;
+
+        case 2:
+            tampilkanSiswa(headSiswa);
+            break;
+
+        case 3:
+            editSiswa(headSiswa);
+            break;
+
+        case 4:
+            hapusSiswa(headSiswa);
+            break;
+
+        case 0:
+            cout << "Kembali ke menu utama...\n";
+            break;
+
+        default:
+            cout << "Pilihan tidak valid!\n";
+        }
+
+    } while (pilihan != 0);
 }

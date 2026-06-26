@@ -1,17 +1,9 @@
+#include "nilai.h"
 #include <iostream>
+
 using namespace std;
-
-struct Nilai {
-    string namaSiswa;
-    string mataPelajaran;
-    float nilai;
-
-    Nilai* prev;
-    Nilai* next;
-};
-
-Nilai* head = NULL;
-Nilai* tail = NULL;
+Nilai* headNilai = NULL;
+Nilai* tailNilai = NULL;
 
 // Tambah Nilai
 void tambahNilai() {
@@ -31,12 +23,12 @@ void tambahNilai() {
     baru->next = NULL;
     baru->prev = NULL;
 
-    if(head == NULL) {
-        head = tail = baru;
+    if(headNilai == NULL) {
+        headNilai = tailNilai = baru;
     } else {
-        tail->next = baru;
-        baru->prev = tail;
-        tail = baru;
+        tailNilai->next = baru;
+        baru->prev = tailNilai;
+        tailNilai = baru;
     }
 
     cout << "Data berhasil ditambahkan!\n";
@@ -49,7 +41,7 @@ void editNilai() {
     cout << "\nNama siswa yang dicari : ";
     cin >> cari;
 
-    Nilai* bantu = head;
+    Nilai* bantu = headNilai;
 
     while(bantu != NULL) {
 
@@ -74,12 +66,12 @@ void editNilai() {
 // Tampilkan Nilai
 void tampilNilai() {
 
-    if(head == NULL) {
+    if(headNilai == NULL) {
         cout << "\nData kosong!\n";
         return;
     }
 
-    Nilai* bantu = head;
+    Nilai* bantu = headNilai;
 
     cout << "\n=== DATA NILAI SISWA ===\n";
 
@@ -103,7 +95,7 @@ void tampilNilai() {
 // Bubble Sort
 void urutkanNilai() {
 
-    if(head == NULL) {
+    if(headNilai == NULL) {
         cout << "\nData kosong!\n";
         return;
     }
@@ -113,7 +105,7 @@ void urutkanNilai() {
     do {
         tukar = false;
 
-        Nilai* bantu = head;
+        Nilai* bantu = headNilai;
 
         while(bantu->next != NULL) {
 
@@ -191,11 +183,4 @@ void menuNilai() {
         }
 
     } while(pilih != 0);
-}
-
-int main() {
-
-    menuNilai();
-
-    return 0;
 }
