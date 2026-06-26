@@ -1,3 +1,4 @@
+#include "MataPelajaran.h"
 #include <iostream>
 #include <string>
 #include <iomanip>
@@ -249,9 +250,9 @@ public:
         }
     }
 };
+PengelolaMapel appMapel;
 
-int main() {
-    PengelolaMapel app;
+void menuMapel() {
     int pilihan;
 
     do {
@@ -276,15 +277,14 @@ int main() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         switch (pilihan) {
-            case 1: app.tambahMapel(); break;
-            case 2: app.tampilkanMapel(); break;
-            case 3: app.ubahMapel(); break;
-            case 4: app.hapusMapel(); break;
-            case 5: app.cariMapel(); break;
+            case 1: appMapel.tambahMapel(); break;
+            case 2: appMapel.tampilkanMapel(); break;
+            case 3: appMapel.ubahMapel(); break;
+            case 4: appMapel.hapusMapel(); break;
+            case 5: appMapel.cariMapel(); break;
             case 0: cout << "Terima kasih! Program selesai.\n"; break;
             default: cout << "Pilihan tidak valid. Silakan coba lagi.\n";
         }
     } while (pilihan != 0);
 
-    return 0;
 }

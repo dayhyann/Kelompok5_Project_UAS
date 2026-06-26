@@ -1,11 +1,11 @@
+#include "searching.h"
 #include <iostream>
-#include <string>
 
 using namespace std;
 
-void cariSiswaByNIS(Siswa *head, string nis)
+void cariSiswaByNIS(Siswa *headSiswa, string nis)
 {
-    Siswa *current = head;
+    Siswa *current = headSiswa;
     bool ditemukan = false;
 
     while (current != nullptr)
@@ -28,9 +28,9 @@ void cariSiswaByNIS(Siswa *head, string nis)
     }
 }
 
-void cariSiswaByNama(Siswa *head, string nama)
+void cariSiswaByNama(Siswa *headSiswa, string nama)
 {
-    Siswa *current = head;
+    Siswa *current = headSiswa;
     bool ditemukan = false;
 
     while (current != nullptr)
@@ -42,6 +42,7 @@ void cariSiswaByNama(Siswa *head, string nama)
             cout << "NIS   : " << current->nis << endl;
             cout << "Nama  : " << current->nama << endl; // Atribut nilai sudah dihapus
             ditemukan = true;
+            break;
         }
         current = current->next;
     }
@@ -52,32 +53,7 @@ void cariSiswaByNama(Siswa *head, string nama)
     }
 }
 
-void cariMapel(Matapelajaran *head, string keyword)
-{
-    Matapelajaran *current = head;
-    bool ditemukan = false;
-
-    while (current != nullptr)
-    {
-        if (current->Kode == keyword || current->Nama == keyword)
-        {
-            cout << "\n[+] Data Mata Pelajaran Ditemukan!" << endl;
-            cout << "----------------------------------" << endl;
-            cout << "Kode Mapel : " << current->Kode << endl;
-            cout << "Nama Mapel : " << current->Nama << endl;
-            cout << "SKS        : " << current->SKS << endl;
-            ditemukan = true;
-        }
-        current = current->next;
-    }
-
-    if (!ditemukan)
-    {
-        cout << "\n[-] Mata pelajaran \"" << keyword << "\" tidak ditemukan." << endl;
-    }
-}
-
-void menuSearching(Siswa *headSiswa, Matapelajaran *headMapel)
+void menuSearching(Siswa *headSiswa)
 {
     int pilihan;
     string keyword;
@@ -89,10 +65,9 @@ void menuSearching(Siswa *headSiswa, Matapelajaran *headMapel)
         cout << "=======================================" << endl;
         cout << "1. Cari Siswa berdasarkan NIS" << endl;
         cout << "2. Cari Siswa berdasarkan Nama" << endl;
-        cout << "3. Cari Mata Pelajaran (Kode/Nama)" << endl;
-        cout << "4. Kembali ke Menu Utama" << endl;
+        cout << "3. Kembali ke Menu Utama" << endl;
         cout << "---------------------------------------" << endl;
-        cout << "Pilih menu (1-4): ";
+        cout << "Pilih menu (1-3): ";
         cin >> pilihan;
         cin.ignore();
 
@@ -109,15 +84,10 @@ void menuSearching(Siswa *headSiswa, Matapelajaran *headMapel)
             cariSiswaByNama(headSiswa, keyword);
             break;
         case 3:
-            cout << "Masukkan Kode/Nama Mapel yang dicari: ";
-            getline(cin, keyword);
-            cariMapel(headMapel, keyword);
-            break;
-        case 4:
             cout << "Keluar dari Menu Searching..." << endl;
             break;
         default:
             cout << "[-] Pilihan tidak tersedia. Silakan coba lagi." << endl;
         }
-    } while (pilihan != 4);
+    } while (pilihan != 3);
 }

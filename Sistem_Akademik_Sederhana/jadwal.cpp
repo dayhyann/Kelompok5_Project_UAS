@@ -1,31 +1,21 @@
+#include "jadwal.h"
 #include <iostream>
-#include <string>
+
 using namespace std;
-
-struct Jadwal {
-	string hari;
-	string jam;
-	string mataPelajaran;
-	string ruangKelas;
-	
-	Jadwal* next;
-	Jadwal* prev;
-};
-
-Jadwal* head = NULL;
+Jadwal* headJadwal = NULL;
 
 //Hitung Jadwal
 int hitungJadwal() {
-	if (head == NULL)
+	if (headJadwal == NULL)
 	return 0;
 	
 	int jumlah = 0;
-	Jadwal* temp = head;
+	Jadwal* temp = headJadwal;
 	
 	do {
 		jumlah++;
 		temp = temp->next;
-	} while (temp != head);
+	} while (temp != headJadwal);
 	
 	return jumlah;
 }
@@ -48,18 +38,18 @@ void tambahJadwal() {
 	cout << "Ruang Kelas     : ";
 	getline(cin, baru->ruangKelas);
 	
-	if (head == NULL) {
-		head = baru;
+	if (headJadwal == NULL) {
+		headJadwal = baru;
 		baru->next = baru;
 		baru->prev = baru;
 	} else {
-		Jadwal* tail = head->prev;
+		Jadwal* tail = headJadwal->prev;
 		
 		tail->next = baru;
 		baru->prev = tail;
 		
-		baru->next = head;
-		head->prev = baru;
+		baru->next = headJadwal;
+		headJadwal->prev = baru;
 	}
 	
 	cout << "\nJadwal berhasil ditambahkan!\n";
@@ -67,12 +57,12 @@ void tambahJadwal() {
 
 //Tampilkan Jadwal
 void tampilJadwal() {
-	if (head == NULL) {
+	if (headJadwal == NULL) {
 		cout << "\nData jadwal kosong!\n";
 		return;
 	}
 	
-	Jadwal* temp = head;
+	Jadwal* temp = headJadwal;
 	int no = 1;
 	
 	cout << "\n===== DATA JADWAL =====\n";
@@ -86,12 +76,12 @@ void tampilJadwal() {
 		
 		temp = temp->next;
 		
-	} while (temp != head);
+	} while (temp != headJadwal);
 }
 
 //Edit Jadwal
 void editJadwal() {
-	if (head == NULL) {
+	if (headJadwal == NULL) {
 		cout << "\nData jadwal kosong!\n";
 		return;
 	}
@@ -107,7 +97,7 @@ void editJadwal() {
 		return;
 	}
 	
-	Jadwal* temp = head;
+	Jadwal* temp = headJadwal;
 	
 	for (int i = 1; i < nomor; i++) {
 		temp = temp->next;
@@ -132,7 +122,7 @@ void editJadwal() {
 
 //Hapus Jadwal
 void hapusJadwal() {
-	if (head == NULL) {
+	if (headJadwal == NULL) {
 		cout << "\nData jadwal kosong!\n";
 		return;
 	}
@@ -148,7 +138,7 @@ void hapusJadwal() {
 		return;
 	}
 	
-	Jadwal* hapus = head;
+	Jadwal* hapus = headJadwal;
 	
 	for (int i = 1; i < nomor; i++) {
 		hapus = hapus->next;
@@ -156,13 +146,13 @@ void hapusJadwal() {
 	
 	//Jika hanya ada 1 Jadwal
 	if (hapus->next == hapus) {
-		head = NULL;
+		headJadwal = NULL;
 	} else {
 		hapus->prev->next = hapus->next;
 		hapus->next->prev = hapus->prev;
 		
-		if (hapus == head) {
-			head = hapus->next;
+		if (hapus == headJadwal) {
+			headJadwal = hapus->next;
 		}
 	}
 	
@@ -171,7 +161,7 @@ void hapusJadwal() {
 	cout << "\nData berhasil dihapus!\n";
 }
 
-int main() {
+void menuJadwal() {
 	int pilihan;
 	
 	do {
@@ -211,5 +201,4 @@ int main() {
 		
 	} while (pilihan != 0);
 	
-	return 0;
 }
