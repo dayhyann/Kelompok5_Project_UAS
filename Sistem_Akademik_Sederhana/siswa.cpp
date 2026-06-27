@@ -1,3 +1,5 @@
+#include "searching.h"
+#include "sorting.h"
 #include "siswa.h"
 #include <iostream>
 
@@ -149,13 +151,13 @@ void menuSiswa()
 
     do
     {
-        cout << "\n===== MENU SISWA =====\n";
         cout << "1. Tambah Siswa\n";
         cout << "2. Tampilkan Siswa\n";
         cout << "3. Edit Siswa\n";
         cout << "4. Hapus Siswa\n";
+        cout << "5. Cari Siswa\n";
+        cout << "6. Urutkan Siswa\n";
         cout << "0. Kembali\n";
-        cout << "Pilihan : ";
         cin >> pilihan;
 
         switch (pilihan)
@@ -175,6 +177,14 @@ void menuSiswa()
         case 4:
             hapusSiswa(headSiswa);
             break;
+            
+        case 5:
+            menuSearching(headSiswa);
+            break;
+
+        case 6:
+            menuSorting(headSiswa);
+             break;
 
         case 0:
             cout << "Kembali ke menu utama...\n";

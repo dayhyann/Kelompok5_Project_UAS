@@ -22,8 +22,6 @@ int main()
         cout << "2. Kelola Mata Pelajaran\n";
         cout << "3. Kelola Jadwal\n";
         cout << "4. Kelola Nilai\n";
-        cout << "5. Searching Data Siswa\n";
-        cout << "6. Sorting Data Siswa\n";
         cout << "0. Keluar\n";
         cout << "=========================================\n";
         cout << "Pilihan : ";
@@ -45,14 +43,6 @@ int main()
 
         case 4:
             menuNilai();
-            break;
-
-        case 5:
-            menuSearching(headSiswa);
-            break;
-
-        case 6:
-            menuSorting(headSiswa);
             break;
 
         case 0:
