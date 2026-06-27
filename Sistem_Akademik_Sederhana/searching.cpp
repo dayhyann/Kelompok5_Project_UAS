@@ -65,9 +65,9 @@ void menuSearching(Siswa *headSiswa)
         cout << "=======================================" << endl;
         cout << "1. Cari Siswa berdasarkan NIS" << endl;
         cout << "2. Cari Siswa berdasarkan Nama" << endl;
-        cout << "3. Kembali ke Menu Utama" << endl;
+        cout << "0. Kembali ke Menu Siswa" << endl;
         cout << "---------------------------------------" << endl;
-        cout << "Pilih menu (1-3): ";
+        cout << "Pilihan : ";
         cin >> pilihan;
         cin.ignore();
 
@@ -83,11 +83,11 @@ void menuSearching(Siswa *headSiswa)
             getline(cin, keyword);
             cariSiswaByNama(headSiswa, keyword);
             break;
-        case 3:
-            cout << "Keluar dari Menu Searching..." << endl;
+        case 0:
+            cout << "Kembali ke Menu Siswa...\n" << endl;
             break;
         default:
             cout << "[-] Pilihan tidak tersedia. Silakan coba lagi." << endl;
         }
-    } while (pilihan != 3);
+    } while (pilihan != 0);
 }
