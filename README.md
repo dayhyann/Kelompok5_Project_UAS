@@ -31,6 +31,8 @@ Pengelolaan data akademik secara manual sering menyebabkan kesulitan dalam penca
 * Menghapus data siswa
 * Menampilkan seluruh data siswa
 * Mencari data siswa berdasarkan nama atau NIS
+* Urutkan Siswa berdasarkan NIS
+* Urutkan Siswa berdasarkan Nama
 
 #### Pengelolaan Mata Pelajaran
 
@@ -137,6 +139,20 @@ Digunakan untuk:
 * Mengurutkan siswa berdasarkan NIS
 * Mengurutkan siswa berdasarkan nama
 * Mengurutkan nilai tertinggi ke terendah
+
+#Pembagian Tugas
+
+ Nama                   Tugas                                   
+* Riyad               : Integrasi Program, Main Program, GitHub 
+* Faiz                : Modul Data Siswa, Searching, Sorting    
+* M.Rafi              : Modul Mata Pelajaran                    
+* Reva                : Modul Jadwal                            
+* Edwin               : Modul Nilai                             
+
+
+## Jalankan Program
+
+.\SistemAkademik.exe
 
 ## CATATAN
 
